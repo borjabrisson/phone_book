@@ -5,22 +5,13 @@ class CompaniesController < ApplicationController
   # GET /companies.json
   def index
     @companies = Company.all
-    fresh_when etag: @companies # 1
 
-  #  fresh_when(etag: [@companies, current_user.try :id])
   end
 
   # GET /companies/1
   # GET /companies/1.json
   def show
-  #  fresh_when last_modified: @company.updated_at
-  #  fresh_when etag: @company
 
-  #  fresh_when etag:([@company, current_user.try :id])
-
-  #  expires_in 2.minutes
-  #  fresh_when etag:@company
-    fresh_when etag:@company, public: true
   end
 
   # GET /companies/new

@@ -1,29 +1,33 @@
 <h1>Listing companies</h1>
 
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>State</th>
-    <th>Number of employees</th> <!-- 1 -->
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @companies.each do |company| %>
+<% cache('table_of_all_companies', skip_digest: true) do %> <!-- 1 -->
+    <table>
+      <thead>
       <tr>
-        <td><%= company.name %></td>
-        <td><%= company.state %></td>
-        <td><%= company.employees.count %></td> <!-- 2 -->
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>State</th>
+        <th>Number of employees</th> <!-- 1 -->
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+      <% @companies.each do |company| %>
+          <tr>
+            <% cache(company) do %> <!-- We use Active record model as the cache key  -->
+            <td><%= company.name %></td>
+            <td><%= company.state %></td>
+            <td><%= company.employees.count %></td> <!-- 2 -->
+            <td><%= link_to 'Show', company %></td>
+            <td><%= link_to 'Edit', edit_company_path(company) %></td>
+            <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
+                </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
 
 <br>
 
