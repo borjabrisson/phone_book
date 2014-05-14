@@ -38,6 +38,7 @@ group :test, :development do
 end
 
 gem 'faker'
+gem 'rails-observers'
 
 group :production do
   gem 'pg', '0.15.1'

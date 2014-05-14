@@ -1,6 +1,7 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
+  cache_sweeper :companies_sweeper, only: [:create] # 1
   # GET /companies
   # GET /companies.json
   def index
